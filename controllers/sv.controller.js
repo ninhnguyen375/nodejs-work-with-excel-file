@@ -1,4 +1,5 @@
 const db = require('../db');
+const path = require('path');
 const xlsx = require('xlsx');
 
 const svSchema = {
@@ -127,4 +128,17 @@ module.exports.removeAll = async (req, res) => {
     .remove({})
     .write();
   res.send('success');
+};
+
+module.exports.downloadCSV = async (req, res) => {
+  const sv = await db.get('sv').value();
+  worksheet = xlsx.utils.json_to_sheet(sv);
+  // create workbook
+  const wb = xlsx.utils.book_new();
+  // add worksheet to workbook
+  xlsx.utils.book_append_sheet(wb, worksheet, 'sheet1');
+  // export file to .xlsx
+  // await wb.xlsx.write('/public/excel-files/sv_newest.xlsx');
+  xlsx.writeFile(wb, 'sv_newest.xlsx', {});
+  res.download('sv_newest.xlsx');
 };

@@ -9,4 +9,6 @@ router.post('/sv/excel', controller.insertFromExcel);
 
 router.post('/sv/removeAll', controller.removeAll);
 
+router.get('/sv/download', controller.downloadCSV);
+
 module.exports = router;

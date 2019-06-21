@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 3000;
 const svRouter = require('./routers/sv.router');
 const expressFileUpload = require('express-fileupload');
 
+app.use(express.static('public'));
 app.use(expressFileUpload());
 app.use(bodyParser.json());
 
